@@ -234,10 +234,7 @@ async function handleSubmit(event) {
   `;
 
   try {
-    const endpoint =
-      mode === "login"
-        ? `${API_URL}/login`
-        : `${API_URL}/register`;
+    const endpoint = API_URL;
 
     const response = await fetch(endpoint, {
       method: "POST",
@@ -246,7 +243,10 @@ async function handleSubmit(event) {
         "Content-Type": "application/json"
       },
 
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+  action: mode,
+  ...payload
+})
     });
 
     const data = await response.json();
